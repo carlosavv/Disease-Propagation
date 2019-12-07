@@ -1,5 +1,4 @@
-%% This is the code  that are using the manipulate different varibles which will in effect spread disease
-
+%% This is the code that we are using to manipulate different variables which will in effect spread disease
 % The variables that can be varied in the Population Function are
 % (1) Percent inoculated,  
 % (2) Probability of transfer 
@@ -16,12 +15,14 @@ numA_suscept = [49,49,49,49,49]; % Array of susceptible members
 numA_infected = [1,1,1,1,1]; % Array of infected people
 numA_recovered = [0,0,0,0,0]; % Array of recovered members 
 
-for i = 1:length(numA_infected) 
-    Inoculated(i) = num_inoc; 
-end
+
 
 for j = 1:length(numA_infected) 
     TotalDays(j) = j; 
+end
+
+for i = 1:length(numA_infected) 
+    Inoculated(i) = num_inoc; 
 end
 
 figure 
