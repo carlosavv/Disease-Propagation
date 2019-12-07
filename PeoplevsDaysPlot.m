@@ -1,3 +1,5 @@
+%People vs. Days Plot with Size, Inoculated Num, Day, % Probability
+
 %% This is the code that we are using to manipulate different variables which will in effect spread disease
 % The variables that can be varied in the Population Function are
 % (1) Percent inoculated,  
@@ -29,10 +31,10 @@ figure
 
 hold on 
 
-plot(TotalDays, Inoculated,'r--o','LineWidth',1); 
-plot(TotalDays, numA_suscept,'k--o','LineWidth',1); 
-plot(TotalDays, numA_infected,'g--o','LineWidth',1); 
-plot(TotalDays, numA_recovered,'b--o','LineWidth',1); 
+plot(TotalDays, Inoculated,'b--o','LineWidth',1); 
+plot(TotalDays, numA_suscept,'r--o','LineWidth',1); 
+plot(TotalDays, numA_infected,'y--o','LineWidth',1); 
+plot(TotalDays, numA_recovered,'g--o','LineWidth',1); 
 
 title(['Day = ', num2str(8),'  % Inoculated =  ', num2str(0.5), '   Size = ', num2str(100), '  % Probability: ' , num2str(0.05)]); 
 xlabel('Days');
