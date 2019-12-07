@@ -46,6 +46,7 @@ class Person{
 			if(status == "infected"){
 				cout << " ("<< days_infected << " to go)";
 			}
+			return status;
 			
 		}
 		bool is_stable(){
