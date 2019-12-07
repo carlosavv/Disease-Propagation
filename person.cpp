@@ -35,12 +35,12 @@ class person{
             }
         }
         void status_string(){
+            cout << status;
             if (status == "sick"){
-                cout << "is sick and will be for " << infect_days << " more days" << endl;
+                cout << " (" <<  infect_days << " to go)";   
             }
-            else{
-                cout << " is " << status << endl;
-            }
+            //return status;
+            
         }
         bool is_stable(){
             if (status == "recovered" || status == "innoculated"){
@@ -55,23 +55,25 @@ class person{
 
 int main(){
     float tolerance = 0.95;
-    cout << "Default probabilty of infection is " << tolerance << endl;
+    //cout << "Default probabilty of infection is " << tolerance << endl;
     int day = 0;
-    
     person joe;
     joe = person();
-    
     while(joe.is_stable() != true){
         day++;
         joe.update();
         float bad_luck = (float) rand()/(float)RAND_MAX;
         if (tolerance < bad_luck){
             joe.infect(5);
-            cout << "Joe on day, " << day << " "; joe.status_string();
+            cout << "On day " << day <<  " Joe is ";
+            //cout << endl;
+            joe.status_string();
             cout << endl;
+
         }
         else{
-            cout << "Joe on day, " << day << " "; joe.status_string();
+            cout << "On day " << day <<  " Joe is ";
+            joe.status_string();
             cout << endl;
         }   
     }
