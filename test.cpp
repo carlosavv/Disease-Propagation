@@ -1,85 +1,82 @@
 #include <iostream>
-#include <vector>
-#include <random>
-#include <string>
 
+using std::string;
 using std::cout;
 using std::endl;
-using std::string;
 
-class Person{
-	private: 
-		string status;
-		int days_infected,n;
-		int count_days;
-	public:
-		Person(){
-			int count_days=0;
-			status = "susceptible";
-			
-		}
-		int infect(int n){
-			//cout << "Hello" << endl;
-			if (status == "susceptible"){
-				status = "infected";
-				days_infected = n;
-			}
-			return 0;
-		}
-		
-		void update(){
-			//n++;
-			//cout << n << endl;
-			count_days++;
-
-			if (days_infected != 1 && status == "infected")
-				days_infected--;
-			else if(status == "infected" && days_infected == 1){
-				status = "recovered";
-			}
-		}
-		
-		
-		//status_string(): returns a description of the person’s state as a string;
-		string status_string(){
-			cout << status;
-			if(status == "infected"){
-				cout << " ("<< days_infected << " to go)";
-			}
-			
-		}
-		bool is_stable(){
-			if ( status == "recovered" || status == "vaccinated"){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
+class person{
+    private:
+        int infect_days, count_days, n;
+        string status;
+    public:
+        person(){
+            status = "susceptible";
+            count_days = 0;
+        }
+        string get_status(){
+            return status;
+        }
+        void set_status(string cond){
+            status = cond;
+        }
+        void infect(int n){
+            if(status == "susceptible"){
+                status = "sick";
+                infect_days = n;
+            }
+        }
+        void update(){
+            count_days++;
+            if (status == "sick" && infect_days != 1){
+                infect_days --;
+            }
+            else if(status == "sick" && infect_days == 1){
+                status = "recovered";
+            }
+        }
+        string status_string(){
+            cout << status;
+            if (status == "sick"){
+                cout << " (" <<  infect_days << " to go)";   
+            }
+            return status;
+            
+        }
+        bool is_stable(){
+            if (status == "recovered" || status == "innoculated"){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    
 };
 
+int main(){
+    float tolerance = 0.95;
+    //cout << "Default probabilty of infection is " << tolerance << endl;
+    int day = 0;
+    person joe;
+    joe = person();
+    while(joe.is_stable() != true){
+        day++;
+        joe.update();
+        float bad_luck = (float) rand()/(float)RAND_MAX;
+        if (tolerance < bad_luck){
+            joe.infect(5);
+            cout << "On day " << day <<  " Joe is ";
+            //cout << endl;
+            joe.status_string();
+            cout << endl;
 
-int main() {
-	Person Joe;
-	int idx = 1;
-	int n = 5;
-	int count = 0;
-	
-	for (; ; idx++){
-		Joe.update();
-		float bad_luck = (float)rand()/(float)RAND_MAX;
-		if (bad_luck>0.95){
-			Joe.infect(n);
-		}
-		
-		cout << "On day " << idx << ", Joe is ";
-		Joe.status_string();
-		cout << endl;
-		
+        }
+        else{
+            cout << "On day " << day <<  " Joe is ";
+            joe.status_string();
+            cout << endl;
+        }   
+    }
 
-		if(Joe.is_stable()){
-			break;
-		}
-
-	}	
+    return 0;
 }
