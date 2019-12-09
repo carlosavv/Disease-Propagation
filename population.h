@@ -25,9 +25,9 @@ class Population{
 			return days_inf;
 		}
 		
-		void interact(int r1, int r2,float p) {
-		Person p1 = population[r1];
-		Person p2 = population[r2];
+		void interact(int i, int j,float p) {
+		Person p1 = population[i];
+		Person p2 = population[j];
 		    	if(p1.status_string() == "susceptible" || p2.status_string() == "susceptible") {
 				int prob = 1 + (rand() % 100);
 				if(prob < probability_of_transfer(p) * 100) {
@@ -39,8 +39,8 @@ class Population{
 					}
 				}
 			}	
-		population[r1] = p1;
-		population[r2] = p2;
+		population[i] = p1;
+		population[j] = p2;
 	    }
 
 		int random_infection(int x) {

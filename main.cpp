@@ -1,5 +1,4 @@
 
-#include "person.h"
 #include "population.h"
 using std::cout;
 using std::endl;
@@ -34,21 +33,23 @@ int main() {
 	int day_count = 0;
 	while(numinf > 0) {
 		day_count++;
-		cout << "Day " << population.getDaysInf() << ": " << numinf << " infected." << endl;
+		cout << population.population_status() << endl;
+		cout << "On Day " << population.getDaysInf() << ": Number of Infected =  " << population.count_infected() << endl;
+		cout << "" << endl;
 		numinf = population.count_infected();
+		
 		for(int i = 0; i < popsize; i++) {
 			if(population.getPelement(i).status_string() == "infected" && population.getPelement(i).getPDaysInf() != time_of_disease) {
 				for(int j = 0; j < interactions; j++) {
-					int r1 = i;
-					int r2 = rand() % popsize;
-					population.interact(r1, r2,probability);
+					int x = i;
+					int y = rand() % popsize;
+					population.interact(x, y,probability);
 				}
 			}
 		}
 		population.update();
-		cout << population.population_status() << endl;
 	}
 
-	cout << "Disease has been eradicated " << day_count << " days." << endl;
+	cout << "Disease has been eradicated in " << day_count << " days." << endl;
 	cout << "Number of people untouched: " << population.count_susceptible() << "." <<  endl;
 }
