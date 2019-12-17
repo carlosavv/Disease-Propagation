@@ -29,6 +29,8 @@ int main() {
 	population.random_inoculation(inoculationPercentage);
 	population.random_infection(time_of_disease);
 	numinf = population.count_infected();
+
+	
 	
 	int day_count = 0;
 	while(numinf > 0) {
@@ -44,7 +46,9 @@ int main() {
 					int x = i;
 					int y = rand() % popsize;
 					population.interact(x, y,probability);
+//				        cout << "ELEMENT: " << i << endl;
 				}
+		
 			}
 		}
 		population.update();

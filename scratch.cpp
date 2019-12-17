@@ -2,11 +2,15 @@
 #include <vector>
 #include <random>
 #include <string>
+#include <algorithm>
 
+using std::vector;
+using std::find;
 using std::cout;
 using std::endl;
 using std::string;
 using std::cin;
+
 
 class Person{
 
@@ -60,35 +64,37 @@ class Person{
 	    }
 };
 
-#include <algorithm>
-
-using std::vector;
-using std::find;
 
 class Population{
 	public:
 		int days_inf;
 		int size;
-		//vector<Person> population;
-		
-		population[size][size];
+		vector<Person> population;
+		Person person1;
+		Person person2;
+			//for i in size(pop):
+		vector<Person> populationVec1;
+		vector<Person> populationVec2;
+		//population[size][size];
 		float probability;
 		
 		Population(int nppl){
 			size = nppl;
 			days_inf = 0;
-			Person person1;
-			Person person2;
-			for i in size(pop):
-			    populationVec1 = vector<Person>(size,person);
-			    
+			Person person;
+			//Person person2;
+			//for i in size(pop):
+			populationVec1 = vector<Person>(size,person);
 			populationVec2 = vector<Person>(size,person);
-
-			for(int i = 0; i<size;i++){
-			    for(int j = 0; j<i;j++){
-			        population[size][size] = {populationVec[i][j]};
-		        }
-			}
+		//	for(int i = 0; i<size;i++){
+		//	  population[size][size] = {populationVec[i][j]};
+		//	  population[size][size] = {populationVec[i][j]};	
+		//	    for(int j = 0; j<i;j++){
+		//	        population[size][size] = {populationVec[i][j]};
+		  //      }
+		//	}
+		//}
+		}
 		float probability_of_transfer(float p){
 			float probability = p;
 			return probability;
@@ -98,8 +104,10 @@ class Population{
 		}
 		
 		void interact(int i, int j,float p) {
-		Person p1 = population[i];
-		Person p2 = population[j];
+			
+			
+			Person p1 = populationVec1[i];
+			Person p2 = populationVec2[j];
 		    	if(p1.status_string() == "susceptible" || p2.status_string() == "susceptible") {
 				int prob = 1 + (rand() % 100);
 				if(prob < probability_of_transfer(p) * 100) {
@@ -111,19 +119,23 @@ class Population{
 					}
 				}
 			}	
-		population[i] = p1;
-		population[j] = p2;
+		populationVec1[i] = p1;
+		populationVec2[j] = p2;
 	    }
 
 		int random_infection(int x) {
 			int random = rand() % size;
-			Person person = population[random];
-			while(person.status_string() == "inoculated") {
+			Person person1 = populationVec1[random];
+			Person person2 = populationVec2[random];
+			while(person1.status_string() == "inoculated" && person2.status_string() == "inoculated") {
 				random = rand() % size;
-				person = population[random];
+				person1 = populationVec1[random];
+				person2 = populationVec2[random];
 			}
-			person.infect(x);
-			population[random] = person;
+			person1.infect(x);
+			person2.infect(x);
+			populationVec1[random] = person1;
+			populationVec2[random] = person2;
 			return 0;
 	    }
 		
@@ -194,11 +206,6 @@ class Population{
 		}		
 };
 
-
-using std::cout;
-using std::endl;
-using std::cin;
-
 int main() {
 	
 	float probability;
@@ -244,9 +251,6 @@ int main() {
 		}
 		population.update();
 	}
-
 	cout << "Disease has been eradicated in " << day_count << " days." << endl;
 	cout << "Number of people untouched: " << population.count_susceptible() << "." <<  endl;
 }
-
-
