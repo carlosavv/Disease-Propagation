@@ -1,3 +1,5 @@
+// C++ Final Group Project -  Ashmir Jiwani, Carlos Villarreal, Cindy Yongoueth
+
 #include <iostream>
 #include <vector>
 #include <random>
